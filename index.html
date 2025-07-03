@@ -1,45 +1,250 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Idul Fitri, Nining!</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f8f9fa;
-            padding: 50px;
-        }
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            display: inline-block;
-        }
-        h1 {
-            color: #008000;
-        }
-        p {
-            font-size: 18px;
-            color: #333;
-        }
-        .footer {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #555;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Antique&family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark/dark.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+  <script src="https://kit.fontawesome.com/4f3ce16e3e.js" crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background-image: url("https://i.postimg.cc/pLd7XMrW/wallpaper.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: white;
+      text-align: center;
+    }
+
+    #konten {
+      position: relative;
+      padding: 30px;
+    }
+
+    #fotoloveu .image img {
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+
+    .catatan {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.3em;
+      margin-top: 20px;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+    }
+
+    .running-text {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 15s linear infinite;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 24px;
+      margin-top: 30px;
+      font-size: 1em;
+      font-weight: bold;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+    }
+
+    #tombWA {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease-in;
+    }
+
+    .fas.fa-heart {
+      position: absolute;
+      color: red;
+      animation: floatUp 4s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes floatUp {
+      0% { bottom: 0; opacity: 1; }
+      100% { bottom: 100vh; opacity: 0; }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="card">
-        <h1>🌙 Selamat Hari Raya Idul Fitri 🌙</h1>
-        <p><strong>Nining</strong>,</p>
-        <p>Mohon maaf lahir dan batin.</p>
-        <p>Semoga kebahagiaan dan kedamaian selalu menyertaimu.</p>
-        <p><em>Taqabbalallahu minna wa minkum.</em></p>
+  <div id="bodyblur"></div>
+
+  <div id="konten">
+    <div id="fotoloveu">
+      <div class="image">
+        <img src="https://i.postimg.cc/Rhzfr0FG/hbd.gif" id="animasi" width="130px" height="130px" />
+      </div>
     </div>
-    <div class="footer">Dibuat dengan ketulusan ❤️</div>
+
+    <!-- Tulisan berjalan: disembunyikan dulu -->
+    <p class="catatan" id="teksJalan" style="opacity: 0; transition: opacity 1s ease-in;">
+      <span class="running-text">
+        Yeay makasih ya 😁 — Kapan nih ditraktirinnya? 😏 — Candaa candaa ☺️ — HBD yaa 🎉🎂🎈
+      </span>
+    </p>
+
+    <div id="tombWA">
+      <a class="button" onclick="bukaWa()">🎁 Kirim Pesan di WhatsApp</a>
+    </div>
+  </div>
+
+  <script>
+    function play() {
+      var audio = new Audio('https://kuisberhadiah.likeadream.repl.co/musiktiktok.m4a');
+      audio.play();
+      audio.loop = true;
+      audio.addEventListener('ended', function () {
+        this.currentTime = 0;
+        this.play();
+      }, false);
+    }
+
+    function bukaWa() {
+      const phone = "6282324404353"; // Nomor WhatsApp kamu
+      const pesan = `${window.nama} udah liat semuanya. Enak aja lu minta traktir 😙\n\nBtw makasih udah ngucapin ><`;
+      window.location.href = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(pesan)}`;
+    }
+
+    const swals = Swal.mixin({
+      backdrop: 'rgba(0,0,123,0.4)',
+      confirmButtonColor: '#003EFF',
+      cancelButtonColor: '#FF0040',
+      allowOutsideClick: false,
+    });
+
+    async function mulai() {
+      const { value: nama } = await swals.fire({
+        title: 'Nama kamu?',
+        input: 'text',
+        confirmButtonText: 'Lanjut',
+        showCancelButton: false,
+      });
+
+      if (nama && nama.length < 11) {
+        play();
+        window.nama = nama;
+        await swals.fire('Ui, ' + nama + ' Sipaling Cool ツ');
+        await swals.fire('Asike Nambah Tua Kie😂');
+        await swals.fire('HBD Yo Ning');
+        await swals.fire('Semoga Panjang Umur, Sehat Selalu & Lancar Kuliahe');
+        pilihwarna();
+      } else {
+        await swals.fire('Ups!', 'Nama tidak boleh kosong atau lebih dari 10 karakter, ya!');
+        mulai();
+      }
+    }
+
+    function tombol() {
+      document.getElementById('tombWA').style.visibility = "visible";
+      document.getElementById('tombWA').style.opacity = "1";
+    }
+
+    function expl() {
+      document.body.style.backgroundColor = "#000";
+      document.getElementById('bodyblur').style.opacity = "1";
+      document.getElementById('bodyblur').style.visibility = "visible";
+      setTimeout(() => {
+        duar();
+        document.getElementById('teksJalan').style.opacity = "1"; // Munculkan teks berjalan di sini
+      }, 200);
+    }
+
+    function duar() {
+      document.getElementById('animasi').classList.add("degdeg");
+      document.getElementById('fotoloveu').style.opacity = "1";
+      document.getElementById('fotoloveu').style.margin = "50px 0 0 0";
+      tombol();
+      setInterval(createHeart, 200);
+    }
+
+    const body = document.querySelector("body");
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "fas fa-heart";
+      heart.style.left = (Math.random() * 90) + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      body.appendChild(heart);
+    }
+
+    setInterval(() => {
+      const heartArr = document.querySelectorAll(".fa-heart");
+      if (heartArr.length > 100) heartArr[0].remove();
+    }, 100);
+
+    async function pilihwarna() {
+      const { isConfirmed: warna } = await swals.fire({
+        title: 'O ya , ' + nama + ' Pilih Warna Sek ',
+        text: 'Sung Bae Rpp, Iki Aman☺️',
+        showCancelButton: true,
+        confirmButtonText: 'Biru',
+        cancelButtonText: 'Merah',
+      });
+
+      if (warna) {
+        await swals.fire('Okeh', 'Warna Biru Nraktir Nyng Ya😆!');
+        const { isConfirmed: warna2 } = await swals.fire({
+          title: nama + ' Yakin Pilih Warna Biru?',
+          text: 'Apa Rep Ganti Warna?',
+          showCancelButton: true,
+          confirmButtonText: 'Yakin',
+          cancelButtonText: 'Ganti',
+        });
+        if (warna2) {
+          await swals.fire('Oke!', `Sekarang lihat ini ya ❤️`);
+          expl();
+        } else {
+          await swals.fire('Oke, Nek Abang', 'Berarti Traktire Dobel Ya😆');
+          expl();
+        }
+      } else {
+        await swals.fire('Okeh', 'Warna Abang Nraktir Nyng Ya😆!');
+        const { isConfirmed: warna2 } = await swals.fire({
+          title: nama + ' Yakin Pilih Warna Abang?',
+          text: 'Apa Rep Ganti Warna?',
+          showCancelButton: true,
+          confirmButtonText: 'Ganti',
+          cancelButtonText: 'Yakin',
+        });
+        if (warna2) {
+          await swals.fire('Oke, Nek Biru', 'Berarti Traktire Dobel Ya 😆');
+          expl();
+        } else {
+          await swals.fire('Oke!', `Sekarang lihat ini ya ❤️`);
+          expl();
+        }
+      }
+    }
+
+    mulai();
+  </script>
 </body>
 </html>
